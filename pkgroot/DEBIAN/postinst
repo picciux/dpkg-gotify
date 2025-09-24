@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+if ! id -u gotify > /dev/null 2>&1; then
+    adduser --system --no-create-home --group --disabled-login gotify
+fi
+
+install -d -o gotify -g gotify -m 0755 /var/lib/gotify/data
+install -d -o gotify -g gotify -m 0755 /var/lib/gotify/images
+install -d -o gotify -g gotify -m 0755 /var/lib/gotify/plugins
+
+install -d -o root -g root -m 0755 /etc/gotify
+if [ ! -f /etc/gotify/config.yml ]; then
+    cp /usr/share/gotify/config.example.yml /etc/gotify/config.yml
+    chown root:root /etc/gotify/config.yml
+    chmod 644 /etc/gotify/config.yml
+fi
+
+if command -v systemctl > /dev/null 2>&1; then
+    systemctl daemon-reload
+    systemctl enable gotify.service
+fi
+
+exit 0

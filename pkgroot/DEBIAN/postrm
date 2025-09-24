@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "purge" ]; then
+    # Remove dirs
+    rm -rf /var/lib/gotify /etc/gotify
+    deluser --system gotify || true
+    delgroup gotify || true
+fi
+
+exit 0
