@@ -6,3 +6,4 @@ Architecture: arm64
 Maintainer: Matteo Piscitelli <matteo@matteopiscitelli.it>
 Description: Simple stand-alone push notification server.
  For further information, please check https://gotify.net.
+Depends: adduser, systemd
